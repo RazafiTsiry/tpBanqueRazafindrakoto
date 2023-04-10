@@ -1,4 +1,4 @@
-package mg.itu.tsiry.tp1.tpbanquerazafindrakoto.resources;
+package mg.itu.tsiry.tp4.tpbanquerazafindrakoto.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
