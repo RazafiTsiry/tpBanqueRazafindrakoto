@@ -6,9 +6,11 @@ package mg.itu.tsiry.tp4.jsf;
 
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import java.io.Serializable;
 import mg.itu.tsiry.tp4.ejb.GestionnaireCompte;
 import mg.itu.tsiry.tp4.entities.CompteBancaire;
 import mg.itu.tsiry.tp4.jsf.util.Util;
@@ -19,8 +21,8 @@ import mg.itu.tsiry.tp4.jsf.util.Util;
  * @author tsiry
  */
 @Named(value = "mouvement")
-@RequestScoped
-public class MouvementBeans {
+@ViewScoped
+public class MouvementBeans implements Serializable{
 
     @EJB
     private GestionnaireCompte gestionnaireCompte;
