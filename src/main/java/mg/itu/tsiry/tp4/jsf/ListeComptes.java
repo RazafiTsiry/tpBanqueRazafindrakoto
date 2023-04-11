@@ -24,6 +24,11 @@ public class ListeComptes implements Serializable {
     private GestionnaireCompte gestionnaireCompte;
     private List<CompteBancaire> compteBancaires;
 
+    public String supprimerCompte(CompteBancaire c){
+        gestionnaireCompte.delete(c);
+        return "listeComptes";
+    }
+    
     public List<CompteBancaire> getCompteBancaires() {
         if (compteBancaires == null) {
             compteBancaires = gestionnaireCompte.getAllComptes();

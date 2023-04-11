@@ -35,6 +35,15 @@ public class GestionnaireCompte {
     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
 
+    public void update(CompteBancaire c){
+        em.merge(c);    
+    }
+    
+    public void delete(CompteBancaire c){
+        CompteBancaire cc=em.merge(c);
+        em.remove(cc);
+    }
+    
     public void transfert(long id,long idD,int solde){
         CompteBancaire destinateur=this.findByID(id);
         CompteBancaire destinataire=this.findByID(idD);
