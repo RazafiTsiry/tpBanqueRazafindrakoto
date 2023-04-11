@@ -35,6 +35,19 @@ public class GestionnaireCompte {
     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
 
+    public void transfert(long id,long idD,int solde){
+        CompteBancaire destinateur=this.findByID(id);
+        CompteBancaire destinataire=this.findByID(idD);
+        destinateur.retirer(solde);
+        destinataire.deposer(solde);
+        em.persist(destinateur);
+        em.persist(destinataire);
+    }
+    
+    public CompteBancaire findByID(long id){
+        return (CompteBancaire)em.find(CompteBancaire.class, id);
+    }
+    
     public void creerCompte(CompteBancaire c) {
         em.persist(c);
     }
@@ -42,5 +55,5 @@ public class GestionnaireCompte {
     public List<CompteBancaire> getAllComptes() {
         Query query = em.createNamedQuery("CompteBancaire.findAll");
         return query.getResultList();
-    }
+    }    
 }

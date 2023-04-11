@@ -20,25 +20,27 @@
                         <p:dataTable value="#{listeComptes.compteBancaires}" var="item"
                                      paginator="true" rows="10"
                                      rowsPerPageTemplate="2,4,8,10"
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-                            <p:column>
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     tableStyle="width:fit-content" >
+                            <p:column width="40">
                                 <f:facet name="header">
                                     <h:outputText value="Id"/>
                                 </f:facet>
                                 <h:outputText value="#{item.id}"/>
                             </p:column>
-                            <p:column sortBy="#{item.nom}">
+                            <p:column sortBy="#{item.nom}" width="200">
                                 <f:facet name="header">
-                                    <h:outputText value="Nom"/>
+                                    <h:outputText value="Nom" />
                                 </f:facet>
                                 <h:outputText value="#{item.nom}"/>
                             </p:column>
-                            <p:column>
+                            <p:column sortBy="#{item.solde}" style="text-align:right;" width="60">
                                 <f:facet name="header">
                                     <h:outputText value="Solde"/>
                                 </f:facet>
-                                <h:outputText value="#{item.solde}"/>
+                                <h:outputText value="#{item.solde}">
+                                    <f:convertNumber pattern="###,###,##0"/>
+                                </h:outputText>
                             </p:column>
                         </p:dataTable>
                     </h:form>
