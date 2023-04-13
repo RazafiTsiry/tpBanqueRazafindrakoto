@@ -4,15 +4,21 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <f:metadata>
-        <f:viewParam name="idCompte" value="#{modifierCompte.idCompte}"
-                     required="true"/>
-        <f:viewAction action="#{modifierCompte.loadCompte}"/>
-    </f:metadata>
+    <!--    <f:metadata>
+            <f:viewParam name="idCompte" value="#modifierCompte.idCompte}"
+                         required="true"/>
+            <f:viewAction action="#modifierCompte.loadCompte}"/>
+        </f:metadata>-->
     <body>
 
         <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
-
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewParam name="idCompte" value="#{modifierCompte.idCompte}"
+                                 required="true"/>
+                    <f:viewAction action="#{modifierCompte.loadCompte}"/>
+                </f:metadata>
+            </ui:define>
             <ui:define name="top">
                 Modifier compte
             </ui:define>
