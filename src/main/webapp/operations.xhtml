@@ -17,7 +17,7 @@
                 </f:metadata>
             </ui:define>
             <ui:define name="top">
-                Historique des operations sur le compte de 
+                Historique des operations sur le compte de #{operations.nom}
             </ui:define>
 
             <ui:define name="content">
@@ -45,7 +45,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="Date Operation" />
                                 </f:facet>
-                                <h:outputText value="#{item.dateOperation}"/>
+                                <h:outputText value="#{item.dateOperation}">
+                                    <f:convertDateTime type="localDateTime" timeStyle="short" pattern="dd/MM/yyyy hh:mm:ss"/>
+                                </h:outputText>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">

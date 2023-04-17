@@ -23,10 +23,21 @@ public class OperationBean {
     private GestionnaireCompte gestionnaireCompte;
     List<OperationBancaire> operations;
     private long idCompte;
+    private String nom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    
     
     public void loadOperations(){
         CompteBancaire compte=gestionnaireCompte.findByID(idCompte);
         operations=compte.getOperations();
+        nom=compte.getNom();
     }
 
     public long getIdCompte() {
