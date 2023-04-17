@@ -4,13 +4,18 @@
  */
 package mg.itu.tsiry.tp4.entities;
 
+import jakarta.persistence.CascadeType;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,21 +23,27 @@ import jakarta.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c"),
-    
-})
+    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c"),})
 public class CompteBancaire implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private int solde;
-    
+
     private String nom;
 
-    public CompteBancaire(){}
-    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OperationBancaire> operations = new ArrayList<>();
+
+    public List<OperationBancaire> getOperations() {
+        return operations;
+    }
+
+    public CompteBancaire() {
+    }
+
     public String getNom() {
         return nom;
     }
@@ -48,7 +59,7 @@ public class CompteBancaire implements Serializable {
     public void setSolde(int solde) {
         this.solde = solde;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -56,15 +67,18 @@ public class CompteBancaire implements Serializable {
     public CompteBancaire(String nom, int solde) {
         this.nom = nom;
         this.solde = solde;
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     public void deposer(int montant) {
         solde += montant;
+        operations.add(new OperationBancaire("Credit", solde));
     }
 
     public void retirer(int montant) {
         if (montant < solde) {
             solde -= montant;
+            operations.add(new OperationBancaire("Debit", (-1)*solde));
         } else {
             solde = 0;
         }
