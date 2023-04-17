@@ -9,15 +9,21 @@
     <body>
 
         <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
-
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewParam name="idCompte" value="#{operations.idCompte}"
+                                 required="true"/>
+                    <f:viewAction action="#{operations.loadOperations}"/>
+                </f:metadata>
+            </ui:define>
             <ui:define name="top">
-                Liste de comptes bancaires
+                Historique des operations sur le compte de 
             </ui:define>
 
             <ui:define name="content">
                 <f:view>
                     <h:form>
-                        <p:dataTable value="#{listeComptes.compteBancaires}" var="item"
+                        <p:dataTable value="#{operations.operations}" var="item"
                                      paginator="true" rows="10"
                                      rowsPerPageTemplate="2,4,8,10"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -29,42 +35,25 @@
                                 <h:link outcome="mouvementArgent?idCompte=#{item.id}" 
                                         value="#{item.id}"/>
                             </p:column>
-                            <p:column sortBy="#{item.nom}" width="200">
+                            <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Nom" />
+                                    <h:outputText value="Description" />
                                 </f:facet>
-                                <h:outputText value="#{item.nom}"/>
+                                <h:outputText value="#{item.description}"/>
                             </p:column>
-                            <p:column sortBy="#{item.solde}" style="text-align:right;" width="60">
+                            <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Solde"/>
+                                    <h:outputText value="Date Operation" />
                                 </f:facet>
-                                <h:outputText value="#{item.solde}">
+                                <h:outputText value="#{item.dateOperation}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Montant"/>
+                                </f:facet>
+                                <h:outputText value="#{item.montant}">
                                     <f:convertNumber pattern="###,###,##0"/>
                                 </h:outputText>
-                            </p:column>
-                            <p:column width="10">
-                                <f:facet name="header">
-                                    <h:outputText value="Opérations"/>
-                                </f:facet>
-                                <h:commandLink action="#{listeComptes.supprimerCompte(item)}"
-                                               title="Supprimer le compte de #{item.nom}" >
-                                    <h:graphicImage name="/images/del.png"/>
-                                </h:commandLink>
-                            </p:column>
-                            <p:column width="10">
-                                <f:facet name="header">
-                                    <h:outputText value="Opérations"/>
-                                </f:facet>
-                               <h:link outcome="modifierCompte?idCompte=#{item.id}" 
-                                        value="Modifier"/>
-                            </p:column>
-                            <p:column width="10">
-                                <f:facet name="header">
-                                    <h:outputText escape="false" value="Historique&lt;br/>opérations"/>
-                                </f:facet>
-                               <h:link outcome="operations?idCompte=#{item.id}" 
-                                        value="Details"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>
